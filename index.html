@@ -139,7 +139,7 @@
         <h3 class="text-2xl font-semibold text-sky-900 mb-4">Próximas Partidas</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-sky-500">
-            <h4 class="font-medium text-gray-800">N/M Irmãos Miranda</h4>
+            <h4 class="font-medium text-gray-800">N/M Ana Karoline</h4>
             <p class="text-sm text-gray-600">Sábado, 11:00h</p>
             <p class="text-sm text-gray-600">Belém ↔ Manaus</p>
           </div>
@@ -185,7 +185,7 @@
         
         <div class="bg-white rounded-xl shadow-md p-6 lg:w-1/3">
           <h3 class="text-xl font-semibold text-sky-900 mb-4">Galeria</h3>
-          <div id="galeriaBarco" class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-2 gap-4">
             <div class="bg-gray-200 h-32 rounded-lg overflow-hidden">
               <img src="https://source.unsplash.com/random/300x200/?ship" alt="Embarcação" class="w-full h-full object-cover">
             </div>
@@ -389,7 +389,7 @@
     const embarcacoes = [
       {
         id: 1,
-        nome: "N/M Irmãos Miranda",
+        nome: "N/M Ana Karoline",
         rota: "Belém ↔ Manaus",
         saida: "Sábados alternados às 11h",
         chegada: "Domingos às 18h",
@@ -400,13 +400,7 @@
           Cabine: "R$ 474,00"
         },
         descricao: "Embarcação moderna com capacidade para 150 passageiros, restaurante a bordo e área de lazer.",
-        imagem: "IMAGENS/barco-3.jpeg",
-        galeria: [
-            "IMAGENS/barco-3.jpeg",
-            "IMAGENS/cabine1.jpeg",
-            "IMAGENS/cabine2.jpeg",
-            "IMAGENS/cabine3.jpeg"
-  ]
+        imagem: "https://source.unsplash.com/random/600x400/?ship"
       },
       {
         id: 2,
@@ -421,7 +415,7 @@
           Cabine: "R$ 421,00"
         },
         descricao: "Barco tradicional com 30 anos de serviço, conhecido por seu atendimento familiar e comida caseira.",
-        imagem: "IMAGENS/barco-4.jpg"
+        imagem: "https://source.unsplash.com/random/600x400/?boat"
       },
       {
         id: 3,
@@ -436,7 +430,7 @@
           Cabine: "R$ 379,00"
         },
         descricao: "Embarcação rápida com viagem mais curta, ideal para quem precisa chegar mais rápido ao destino.",
-        imagem: "IMAGENS/barco-5.jpeg"
+        imagem: "https://source.unsplash.com/random/600x400/?ferry"
       }
     ];
 
@@ -452,31 +446,27 @@
     });
 
     function mostrarTela(telaId) {
-  // 1) Esconde todas as seções
-  document.querySelectorAll('.tela').forEach(sec => {
-    sec.classList.add('hidden');
-    sec.classList.remove('block');
-  });
-
-  // 2) Exibe só a seção clicada
-  const secao = document.getElementById(telaId);
-  secao.classList.remove('hidden');
-  secao.classList.add('block');
-
-  // 3) Atualiza classe 'active' nos botões
-  document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  document
-    .querySelector(.nav-btn[onclick="mostrarTela('${telaId}')"])
-    .classList.add('active');
-
-  // 4) Carrega conteúdo dinâmico, se for o caso
-  if (telaId === 'horarios')   carregarHorarios();
-  if (telaId === 'detalhes')   carregarDetalhes();
-  if (telaId === 'reserva')    preencherOpcoesReserva();
-}
-
+      // Hide all sections
+      document.querySelectorAll('.tela').forEach(sec => {
+        sec.classList.add('hidden');
+        sec.classList.remove('block');
+      });
+      
+      // Show selected section
+      document.getElementById(telaId).classList.remove('hidden');
+      document.getElementById(telaId).classList.add('block');
+      
+      // Update active nav button
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(button[onclick="mostrarTela('${telaId}')"]).classList.add('active');
+      
+      // Load content for specific screens
+      if (telaId === 'horarios') carregarHorarios();
+      if (telaId === 'detalhes') carregarDetalhes();
+      if (telaId === 'reserva') preencherOpcoesReserva();
+    }
 
     function carregarHorarios() {
       const lista = document.getElementById('listaHorarios');
@@ -558,107 +548,99 @@
       }
     }
 
-  function carregarDetalhes() {
-  const info = document.getElementById('infoBarco');
-  const galeria = document.getElementById('galeriaBarco');
-  const barco = embarcacoes[0]; // ou qualquer outro selecionado
-
-  info.innerHTML = `
-    <div class="mb-6">
-      <h3 class="text-2xl font-bold text-sky-900 mb-2">${barco.nome}</h3>
-      <div class="flex items-center text-gray-600 mb-4">
-        <i class="fas fa-map-marker-alt mr-2"></i>
-        <span>${barco.rota}</span>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-      <div>
-        <h4 class="text-lg font-semibold text-gray-800 mb-3">Informações da Viagem</h4>
-        <div class="space-y-4">
-          <div class="flex">
-            <div class="w-1/3">
-              <p class="text-sm text-gray-500">Partida</p>
-              <p class="font-medium">${barco.saida}</p>
-            </div>
-            <div class="w-1/3">
-              <p class="text-sm text-gray-500">Chegada</p>
-              <p class="font-medium">${barco.chegada}</p>
-            </div>
-            <div class="w-1/3">
-              <p class="text-sm text-gray-500">Duração</p>
-              <p class="font-medium">${barco.rota.includes("Manaus") ? "30h" : "24h"}</p>
-            </div>
+    function carregarDetalhes() {
+      const info = document.getElementById('infoBarco');
+      const barco = embarcacoes[0];
+      
+      info.innerHTML = `
+        <div class="mb-6">
+          <h3 class="text-2xl font-bold text-sky-900 mb-2">${barco.nome}</h3>
+          <div class="flex items-center text-gray-600 mb-4">
+            <i class="fas fa-map-marker-alt mr-2"></i>
+            <span>${barco.rota}</span>
           </div>
-
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div>
-            <p class="text-sm text-gray-500">Acomodações</p>
-            <div class="flex flex-wrap gap-2 mt-2">
-              ${barco.acomodacoes.map(acomod => `
-                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                  ${acomod}
-                </span>
-              `).join('')}
-            </div>
-          </div>
-
-          <div>
-            <p class="text-sm text-gray-500">Preços</p>
-            <div class="mt-2 space-y-2">
-              ${Object.entries(barco.preco).map(([tipo, preco]) => `
-                <div class="flex justify-between">
-                  <span>${tipo}</span>
-                  <span class="font-medium">${preco}</span>
+            <h4 class="text-lg font-semibold text-gray-800 mb-3">Informações da Viagem</h4>
+            <div class="space-y-4">
+              <div class="flex">
+                <div class="w-1/3">
+                  <p class="text-sm text-gray-500">Partida</p>
+                  <p class="font-medium">${barco.saida}</p>
                 </div>
-              `).join('')}
+                <div class="w-1/3">
+                  <p class="text-sm text-gray-500">Chegada</p>
+                  <p class="font-medium">${barco.chegada}</p>
+                </div>
+                <div class="w-1/3">
+                  <p class="text-sm text-gray-500">Duração</p>
+                  <p class="font-medium">${barco.rota.includes("Manaus") ? "30h" : "24h"}</p>
+                </div>
+              </div>
+              
+              <div>
+                <p class="text-sm text-gray-500">Acomodações</p>
+                <div class="flex flex-wrap gap-2 mt-2">
+                  ${barco.acomodacoes.map(acomod => `
+                    <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                      ${acomod}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+              
+              <div>
+                <p class="text-sm text-gray-500">Preços</p>
+                <div class="mt-2 space-y-2">
+                  ${Object.entries(barco.preco).map(([tipo, preco]) => `
+                    <div class="flex justify-between">
+                      <span>${tipo}</span>
+                      <span class="font-medium">${preco}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold text-gray-800 mb-3">Descrição</h4>
+            <p class="text-gray-600">${barco.descricao}</p>
+            
+            <h4 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Serviços</h4>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="flex items-center">
+                <i class="fas fa-utensils text-sky-600 mr-2"></i>
+                <span>Restaurante</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-wifi text-sky-600 mr-2"></i>
+                <span>Wi-Fi</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-tv text-sky-600 mr-2"></i>
+                <span>TV</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-fan text-sky-600 mr-2"></i>
+                <span>Ar-condicionado</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div>
-        <h4 class="text-lg font-semibold text-gray-800 mb-3">Descrição</h4>
-        <p class="text-gray-600">${barco.descricao}</p>
-
-        <h4 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Serviços</h4>
-        <div class="grid grid-cols-2 gap-3">
-          <div class="flex items-center">
-            <i class="fas fa-utensils text-sky-600 mr-2"></i>
-            <span>Restaurante</span>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-wifi text-sky-600 mr-2"></i>
-            <span>Wi-Fi</span>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-tv text-sky-600 mr-2"></i>
-            <span>TV</span>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-fan text-sky-600 mr-2"></i>
-            <span>Ar-condicionado</span>
+        
+        <div class="bg-sky-50 rounded-lg p-4">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">Políticas</h4>
+          <div class="text-sm text-gray-600 space-y-2">
+            <p><strong>Cancelamento:</strong> Até 48h antes da viagem com reembolso de 80%.</p>
+            <p><strong>Check-in:</strong> Chegar com 2h de antecedência no porto.</p>
+            <p><strong>Documentação:</strong> Apresentar documento com foto no embarque.</p>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="bg-sky-50 rounded-lg p-4">
-      <h4 class="text-lg font-semibold text-gray-800 mb-2">Políticas</h4>
-      <div class="text-sm text-gray-600 space-y-2">
-        <p><strong>Cancelamento:</strong> Até 48h antes da viagem com reembolso de 80%.</p>
-        <p><strong>Check-in:</strong> Chegar com 2h de antecedência no porto.</p>
-        <p><strong>Documentação:</strong> Apresentar documento com foto no embarque.</p>
-      </div>
-    </div>
-  `;
-
-  // Preenche a galeria
-  galeria.innerHTML = barco.galeria.map(src => `
-    <div class="bg-gray-200 h-32 rounded-lg overflow-hidden">
-      <img src="${src}" alt="Imagem da embarcação" class="w-full h-full object-cover">
-    </div>
-  `).join('');
-}
+      `;
+    }
 
     function preencherOpcoesReserva() {
       const select = document.getElementById('selecaoBarco');
