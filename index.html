@@ -460,7 +460,7 @@
       document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.classList.remove('active');
       });
-      document.querySelector(button[onclick="mostrarTela('${telaId}')"]).classList.add('active');
+      document.querySelector(`button[onclick="mostrarTela('${telaId}')"]`).classList.add('active');
       
       // Load content for specific screens
       if (telaId === 'horarios') carregarHorarios();
@@ -678,7 +678,7 @@
       
       // Format CPF for display
       const cpfFormatado = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-      const cpfOculto = cpfFormatado.replace(/^(\d{3})\.(\d{3})\.(\d{3})/, "..*");
+      const cpfOculto = cpfFormatado.replace(/^(\d{3})\.(\d{3})\.(\d{3})/, "***.***.***");
       
       const reservaHTML = `
         <div class="reservation-card rounded-xl shadow-md p-6 mb-6">
@@ -749,7 +749,7 @@
       const ref = "RD" + Math.floor(100000 + Math.random() * 900000);
       
       new QRCode(qrDiv, {
-        text: https://rodway.digital/bilhete?ref=${ref},
+        text: `https://rodway.digital/bilhete?ref=${ref}`,
         width: 180,
         height: 180,
         colorDark: "#0369a1",
