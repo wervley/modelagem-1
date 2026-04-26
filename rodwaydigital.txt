@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rodway Digital - Transporte Fluvial</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8fafc;
+    }
+    
+    .wave-bg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      z-index: -1;
+    }
+    
+    .wave-bg svg {
+      position: relative;
+      display: block;
+      width: calc(100% + 1.3px);
+      height: 150px;
+    }
+    
+    .wave-bg .shape-fill {
+      fill: #0369a1;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .transition-all {
+      transition: all 0.3s ease;
+    }
+    
+    .reservation-card {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border-left: 4px solid #0369a1;
+    }
+    
+    .nav-btn.active {
+      background-color: #0369a1;
+      color: white;
+    }
+    
+    #qrcode img {
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Wave background -->
+  <div class="wave-bg">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+    </svg>
+  </div>
+
+  <header class="bg-sky-900 text-white shadow-lg">
+    <div class="container mx-auto px-4 py-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="flex items-center mb-4 md:mb-0">
+          <i class="fas fa-ship text-3xl mr-3"></i>
+          <h1 class="text-3xl font-bold">Rodway Digital</h1>
+        </div>
+        <nav class="flex flex-wrap justify-center gap-2">
+          <button onclick="mostrarTela('home')" class="nav-btn px-4 py-2 rounded-lg font-medium transition-all hover:bg-sky-700 active">
+            <i class="fas fa-home mr-2"></i>Início
+          </button>
+          <button onclick="mostrarTela('horarios')" class="nav-btn px-4 py-2 rounded-lg font-medium transition-all hover:bg-sky-700">
+            <i class="fas fa-clock mr-2"></i>Horários
+          </button>
+          <button onclick="mostrarTela('detalhes')" class="nav-btn px-4 py-2 rounded-lg font-medium transition-all hover:bg-sky-700">
+            <i class="fas fa-info-circle mr-2"></i>Detalhes
+          </button>
+          <button onclick="mostrarTela('reserva')" class="nav-btn px-4 py-2 rounded-lg font-medium transition-all hover:bg-sky-700">
+            <i class="fas fa-ticket-alt mr-2"></i>Reserva
+          </button>
+          <button onclick="mostrarTela('painel')" class="nav-btn px-4 py-2 rounded-lg font-medium transition-all hover:bg-sky-700">
+            <i class="fas fa-user mr-2"></i>Minhas Viagens
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow container mx-auto px-4 py-8">
+    <!-- Home Screen -->
+    <section id="home" class="tela ativa">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-sky-900 mb-4">Bem-vindo ao Rodway Digital</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Conectando passageiros e embarcações no Porto de Manaus com conforto e segurança.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all">
+          <div class="p-6">
+            <div class="text-sky-600 text-4xl mb-4">
+              <i class="fas fa-route"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Rotas Diversas</h3>
+            <p class="text-gray-600">Explore nossas rotas fluviais que conectam Belém, Manaus e Santarém.</p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all">
+          <div class="p-6">
+            <div class="text-sky-600 text-4xl mb-4">
+              <i class="fas fa-bed"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Acomodações</h3>
+            <p class="text-gray-600">Escolha entre redes, poltronas ou cabines para sua viagem.</p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all">
+          <div class="p-6">
+            <div class="text-sky-600 text-4xl mb-4">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Segurança</h3>
+            <p class="text-gray-600">Nossas embarcações seguem todos os protocolos de segurança exigidos.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-sky-50 rounded-xl p-8 shadow-inner">
+        <h3 class="text-2xl font-semibold text-sky-900 mb-4">Próximas Partidas</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-sky-500">
+            <h4 class="font-medium text-gray-800">N/M Ana Karoline</h4>
+            <p class="text-sm text-gray-600">Sábado, 11:00h</p>
+            <p class="text-sm text-gray-600">Belém ↔ Manaus</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-sky-500">
+            <h4 class="font-medium text-gray-800">F/B San Marino II</h4>
+            <p class="text-sm text-gray-600">Terça, 14:00h</p>
+            <p class="text-sm text-gray-600">Belém ↔ Manaus</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-sky-500">
+            <h4 class="font-medium text-gray-800">F/B Amazonas II</h4>
+            <p class="text-sm text-gray-600">Quinta, 09:00h</p>
+            <p class="text-sm text-gray-600">Belém ↔ Santarém</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Horários Screen -->
+    <section id="horarios" class="tela hidden">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-3xl font-bold text-sky-900">Horários e Rotas</h2>
+        <div class="relative">
+          <select id="filtroRota" class="appearance-none bg-white border border-gray-300 rounded-lg pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500">
+            <option value="todas">Todas as Rotas</option>
+            <option value="belem-manaus">Belém ↔ Manaus</option>
+            <option value="belem-santarem">Belém ↔ Santarém</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div id="listaHorarios" class="space-y-6"></div>
+    </section>
+
+    <!-- Detalhes Screen -->
+    <section id="detalhes" class="tela hidden">
+      <h2 class="text-3xl font-bold text-sky-900 mb-8">Detalhes da Embarcação</h2>
+      
+      <div class="flex flex-col lg:flex-row gap-8">
+        <div id="infoBarco" class="bg-white rounded-xl shadow-md p-6 lg:w-2/3"></div>
+        
+        <div class="bg-white rounded-xl shadow-md p-6 lg:w-1/3">
+          <h3 class="text-xl font-semibold text-sky-900 mb-4">Galeria</h3>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-gray-200 h-32 rounded-lg overflow-hidden">
+              <img src="https://source.unsplash.com/random/300x200/?ship" alt="Embarcação" class="w-full h-full object-cover">
+            </div>
+            <div class="bg-gray-200 h-32 rounded-lg overflow-hidden">
+              <img src="https://source.unsplash.com/random/300x200/?boat" alt="Embarcação" class="w-full h-full object-cover">
+            </div>
+            <div class="bg-gray-200 h-32 rounded-lg overflow-hidden">
+              <img src="https://source.unsplash.com/random/300x200/?hammock" alt="Acomodação" class="w-full h-full object-cover">
+            </div>
+            <div class="bg-gray-200 h-32 rounded-lg overflow-hidden">
+              <img src="https://source.unsplash.com/random/300x200/?cabin" alt="Cabine" class="w-full h-full object-cover">
+            </div>
+          </div>
+          
+          <div class="mt-6">
+            <h4 class="font-medium text-gray-800 mb-2">Avaliações</h4>
+            <div class="flex items-center mb-2">
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <span class="text-gray-600 ml-2">4.5 (128 avaliações)</span>
+            </div>
+            <button class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-lg transition-all">
+              <i class="fas fa-calendar-alt mr-2"></i>Reservar Agora
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reserva Screen -->
+    <section id="reserva" class="tela hidden">
+      <h2 class="text-3xl font-bold text-sky-900 mb-8">Reserva de Passagem</h2>
+      
+      <div class="bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-3">
+          <div class="lg:col-span-2 p-8">
+            <form id="formReserva" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="nomePassageiro" class="block text-sm font-medium text-gray-700 mb-1">Nome completo</label>
+                  <div class="relative">
+                    <input type="text" id="nomePassageiro" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <i class="fas fa-user text-gray-400"></i>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <label for="cpfPassageiro" class="block text-sm font-medium text-gray-700 mb-1">CPF</label>
+                  <div class="relative">
+                    <input type="text" id="cpfPassageiro" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <i class="fas fa-id-card text-gray-400"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <label for="selecaoBarco" class="block text-sm font-medium text-gray-700 mb-1">Embarcação</label>
+                <div class="relative">
+                  <select id="selecaoBarco" class="w-full px-4 py-2 border border-gray-300 rounded-lg appearance-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                    <!-- Options will be filled by JavaScript -->
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <i class="fas fa-chevron-down"></i>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <label for="selecaoAcomodacao" class="block text-sm font-medium text-gray-700 mb-1">Tipo de acomodação</label>
+                <div class="relative">
+                  <select id="selecaoAcomodacao" class="w-full px-4 py-2 border border-gray-300 rounded-lg appearance-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                    <option value="Rede">Rede</option>
+                    <option value="Poltrona">Poltrona</option>
+                    <option value="Cabine">Cabine</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <i class="fas fa-chevron-down"></i>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="pt-4">
+                <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center">
+                  <i class="fas fa-check-circle mr-2"></i> Confirmar Reserva
+                </button>
+              </div>
+            </form>
+          </div>
+          
+          <div class="bg-sky-50 p-8 flex flex-col justify-center">
+            <h3 class="text-xl font-semibold text-sky-900 mb-4">Sua Viagem</h3>
+            <div id="resumoViagem" class="space-y-4">
+              <div class="flex items-center">
+                <div class="bg-sky-100 p-3 rounded-full mr-4">
+                  <i class="fas fa-ship text-sky-600"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Embarcação</p>
+                  <p class="font-medium" id="resumoBarco">-</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="bg-sky-100 p-3 rounded-full mr-4">
+                  <i class="fas fa-map-marked-alt text-sky-600"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Rota</p>
+                  <p class="font-medium" id="resumoRota">-</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="bg-sky-100 p-3 rounded-full mr-4">
+                  <i class="fas fa-bed text-sky-600"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Acomodação</p>
+                  <p class="font-medium" id="resumoAcomodacao">-</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="bg-sky-100 p-3 rounded-full mr-4">
+                  <i class="fas fa-wallet text-sky-600"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Preço</p>
+                  <p class="font-medium" id="resumoPreco">-</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Painel Screen -->
+    <section id="painel" class="tela hidden">
+      <h2 class="text-3xl font-bold text-sky-900 mb-8">Minhas Reservas</h2>
+      
+      <div id="listaReservas" class="mb-12">
+        <div class="bg-white rounded-xl shadow-md p-6 text-center">
+          <i class="fas fa-ticket-alt text-4xl text-gray-300 mb-4"></i>
+          <h3 class="text-xl font-medium text-gray-700 mb-2">Nenhuma reserva encontrada</h3>
+          <p class="text-gray-500 mb-4">Faça sua primeira reserva para começar sua jornada conosco!</p>
+          <button onclick="mostrarTela('reserva')" class="bg-sky-600 hover:bg-sky-700 text-white px-6 py-2 rounded-lg transition-all">
+            <i class="fas fa-plus mr-2"></i> Nova Reserva
+          </button>
+        </div>
+      </div>
+      
+      <div id="qrcode" class="bg-white rounded-xl shadow-md p-8 max-w-md mx-auto text-center hidden">
+        <h3 class="text-xl font-semibold text-sky-900 mb-4">Seu Bilhete Digital</h3>
+        <p class="text-gray-600 mb-6">Apresente este QR Code no embarque para acessar sua embarcação.</p>
+        <!-- QR Code will be generated here -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-sky-900 text-white py-6 mt-12">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <h3 class="text-xl font-bold flex items-center">
+            <i class="fas fa-ship mr-2"></i> Rodway Digital
+          </h3>
+          <p class="text-sky-200">Transporte fluvial com qualidade e conforto</p>
+        </div>
+        
+        <div class="flex space-x-4">
+          <a href="#" class="text-white hover:text-sky-300 transition-all">
+            <i class="fab fa-facebook-f text-xl"></i>
+          </a>
+          <a href="#" class="text-white hover:text-sky-300 transition-all">
+            <i class="fab fa-instagram text-xl"></i>
+          </a>
+          <a href="#" class="text-white hover:text-sky-300 transition-all">
+            <i class="fab fa-whatsapp text-xl"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="border-t border-sky-800 mt-6 pt-6 text-center text-sky-200 text-sm">
+        <p>&copy; 2025 Rodway Digital. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const embarcacoes = [
+      {
+        id: 1,
+        nome: "N/M Ana Karoline",
+        rota: "Belém ↔ Manaus",
+        saida: "Sábados alternados às 11h",
+        chegada: "Domingos às 18h",
+        acomodacoes: ["Rede", "Poltrona", "Cabine"],
+        preco: {
+          Rede: "R$ 158,00",
+          Poltrona: "R$ 280,00",
+          Cabine: "R$ 474,00"
+        },
+        descricao: "Embarcação moderna com capacidade para 150 passageiros, restaurante a bordo e área de lazer.",
+        imagem: "IMAGENS/barco-3.jpeg"
+      },
+      {
+        id: 2,
+        nome: "F/B San Marino II",
+        rota: "Belém ↔ Manaus",
+        saida: "Terças às 14h",
+        chegada: "Quartas às 21h",
+        acomodacoes: ["Rede", "Poltrona", "Cabine"],
+        preco: {
+          Rede: "R$ 127,00",
+          Poltrona: "R$ 240,00",
+          Cabine: "R$ 421,00"
+        },
+        descricao: "Barco tradicional com 30 anos de serviço, conhecido por seu atendimento familiar e comida caseira.",
+        imagem: "https://source.unsplash.com/random/600x400/?boat"
+      },
+      {
+        id: 3,
+        nome: "F/B Amazonas II",
+        rota: "Belém ↔ Santarém",
+        saida: "Quintas às 09h",
+        chegada: "Sextas às 16h",
+        acomodacoes: ["Rede", "Poltrona", "Cabine"],
+        preco: {
+          Rede: "R$ 200,00",
+          Poltrona: "R$ 320,00",
+          Cabine: "R$ 379,00"
+        },
+        descricao: "Embarcação rápida com viagem mais curta, ideal para quem precisa chegar mais rápido ao destino.",
+        imagem: "https://source.unsplash.com/random/600x400/?ferry"
+      }
+    ];
+
+    // Initialize with first view
+    document.addEventListener('DOMContentLoaded', function() {
+      mostrarTela('home');
+      atualizarResumoViagem();
+      
+      // Add event listeners for form changes
+      document.getElementById('selecaoBarco').addEventListener('change', atualizarResumoViagem);
+      document.getElementById('selecaoAcomodacao').addEventListener('change', atualizarResumoViagem);
+      document.getElementById('filtroRota').addEventListener('change', filtrarRotas);
+    });
+
+    function mostrarTela(telaId) {
+  // 1) Esconde todas as seções
+  document.querySelectorAll('.tela').forEach(sec => {
+    sec.classList.add('hidden');
+    sec.classList.remove('block');
+  });
+
+  // 2) Exibe só a seção clicada
+  const secao = document.getElementById(telaId);
+  secao.classList.remove('hidden');
+  secao.classList.add('block');
+
+  // 3) Atualiza classe 'active' nos botões
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  document
+    .querySelector(`.nav-btn[onclick="mostrarTela('${telaId}')"]`)
+    .classList.add('active');
+
+  // 4) Carrega conteúdo dinâmico, se for o caso
+  if (telaId === 'horarios')   carregarHorarios();
+  if (telaId === 'detalhes')   carregarDetalhes();
+  if (telaId === 'reserva')    preencherOpcoesReserva();
+}
+
+
+    function carregarHorarios() {
+      const lista = document.getElementById('listaHorarios');
+      lista.innerHTML = embarcacoes.map(barco => `
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all">
+          <div class="md:flex">
+            <div class="md:w-1/3 h-48 md:h-auto">
+              <img src="${barco.imagem}" alt="${barco.nome}" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6 md:w-2/3">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-semibold text-gray-800">${barco.nome}</h3>
+                <span class="bg-sky-100 text-sky-800 text-xs font-medium px-2.5 py-0.5 rounded">Disponível</span>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p class="text-sm text-gray-500">Rota</p>
+                  <p class="font-medium">${barco.rota}</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Partida</p>
+                  <p class="font-medium">${barco.saida}</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Chegada</p>
+                  <p class="font-medium">${barco.chegada}</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Duração</p>
+                  <p class="font-medium">${barco.rota.includes("Manaus") ? "30h" : "24h"}</p>
+                </div>
+              </div>
+              
+              <div class="flex flex-wrap gap-2 mb-4">
+                ${barco.acomodacoes.map(acomod => `
+                  <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                    ${acomod}
+                  </span>
+                `).join('')}
+              </div>
+              
+              <div class="flex justify-between items-center">
+                <div>
+                  <p class="text-sm text-gray-500">A partir de</p>
+                  <p class="text-xl font-bold text-sky-600">${barco.preco.Rede}</p>
+                </div>
+                <button onclick="selecionarBarco(${barco.id})" class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-lg transition-all">
+                  <i class="fas fa-ticket-alt mr-2"></i> Reservar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filtrarRotas() {
+      const filtro = document.getElementById('filtroRota').value;
+      const cards = document.querySelectorAll('#listaHorarios > div');
+      
+      cards.forEach(card => {
+        const rota = card.querySelector('p.font-medium').textContent;
+        const shouldShow = 
+          filtro === 'todas' || 
+          (filtro === 'belem-manaus' && rota.includes("Manaus")) ||
+          (filtro === 'belem-santarem' && rota.includes("Santarém"));
+        
+        card.style.display = shouldShow ? 'block' : 'none';
+      });
+    }
+
+    function selecionarBarco(id) {
+      const barco = embarcacoes.find(b => b.id === id);
+      if (barco) {
+        document.getElementById('selecaoBarco').value = barco.nome;
+        atualizarResumoViagem();
+        mostrarTela('reserva');
+      }
+    }
+
+    function carregarDetalhes() {
+      const info = document.getElementById('infoBarco');
+      const barco = embarcacoes[0];
+      
+      info.innerHTML = `
+        <div class="mb-6">
+          <h3 class="text-2xl font-bold text-sky-900 mb-2">${barco.nome}</h3>
+          <div class="flex items-center text-gray-600 mb-4">
+            <i class="fas fa-map-marker-alt mr-2"></i>
+            <span>${barco.rota}</span>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div>
+            <h4 class="text-lg font-semibold text-gray-800 mb-3">Informações da Viagem</h4>
+            <div class="space-y-4">
+              <div class="flex">
+                <div class="w-1/3">
+                  <p class="text-sm text-gray-500">Partida</p>
+                  <p class="font-medium">${barco.saida}</p>
+                </div>
+                <div class="w-1/3">
+                  <p class="text-sm text-gray-500">Chegada</p>
+                  <p class="font-medium">${barco.chegada}</p>
+                </div>
+                <div class="w-1/3">
+                  <p class="text-sm text-gray-500">Duração</p>
+                  <p class="font-medium">${barco.rota.includes("Manaus") ? "30h" : "24h"}</p>
+                </div>
+              </div>
+              
+              <div>
+                <p class="text-sm text-gray-500">Acomodações</p>
+                <div class="flex flex-wrap gap-2 mt-2">
+                  ${barco.acomodacoes.map(acomod => `
+                    <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                      ${acomod}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+              
+              <div>
+                <p class="text-sm text-gray-500">Preços</p>
+                <div class="mt-2 space-y-2">
+                  ${Object.entries(barco.preco).map(([tipo, preco]) => `
+                    <div class="flex justify-between">
+                      <span>${tipo}</span>
+                      <span class="font-medium">${preco}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold text-gray-800 mb-3">Descrição</h4>
+            <p class="text-gray-600">${barco.descricao}</p>
+            
+            <h4 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Serviços</h4>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="flex items-center">
+                <i class="fas fa-utensils text-sky-600 mr-2"></i>
+                <span>Restaurante</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-wifi text-sky-600 mr-2"></i>
+                <span>Wi-Fi</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-tv text-sky-600 mr-2"></i>
+                <span>TV</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-fan text-sky-600 mr-2"></i>
+                <span>Ar-condicionado</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-sky-50 rounded-lg p-4">
+          <h4 class="text-lg font-semibold text-gray-800 mb-2">Políticas</h4>
+          <div class="text-sm text-gray-600 space-y-2">
+            <p><strong>Cancelamento:</strong> Até 48h antes da viagem com reembolso de 80%.</p>
+            <p><strong>Check-in:</strong> Chegar com 2h de antecedência no porto.</p>
+            <p><strong>Documentação:</strong> Apresentar documento com foto no embarque.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function preencherOpcoesReserva() {
+      const select = document.getElementById('selecaoBarco');
+      select.innerHTML = embarcacoes.map(barco => `
+        <option value="${barco.nome}">${barco.nome} - ${barco.rota}</option>
+      `).join('');
+      
+      atualizarResumoViagem();
+    }
+
+    function atualizarResumoViagem() {
+      const barcoNome = document.getElementById('selecaoBarco').value;
+      const acomodacao = document.getElementById('selecaoAcomodacao').value;
+      
+      const barco = embarcacoes.find(b => b.nome === barcoNome.split(' - ')[0]);
+      
+      if (barco) {
+        document.getElementById('resumoBarco').textContent = barco.nome;
+        document.getElementById('resumoRota').textContent = barco.rota;
+        document.getElementById('resumoAcomodacao').textContent = acomodacao;
+        document.getElementById('resumoPreco').textContent = barco.preco[acomodacao] || "-";
+      }
+    }
+
+    document.getElementById('formReserva').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const nome = document.getElementById('nomePassageiro').value;
+      const cpf = document.getElementById('cpfPassageiro').value;
+      const barcoNome = document.getElementById('selecaoBarco').value;
+      const acomodacao = document.getElementById('selecaoAcomodacao').value;
+      
+      const barco = embarcacoes.find(b => b.nome === barcoNome.split(' - ')[0]);
+      const preco = barco ? barco.preco[acomodacao] : "-";
+      
+      // Format CPF for display
+      const cpfFormatado = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+      const cpfOculto = cpfFormatado.replace(/^(\d{3})\.(\d{3})\.(\d{3})/, "..*");
+      
+      const reservaHTML = `
+        <div class="reservation-card rounded-xl shadow-md p-6 mb-6">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800">${barcoNome}</h3>
+              <p class="text-gray-600">${barco.rota}</p>
+            </div>
+            <span class="bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded-full">
+              Confirmada
+            </span>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div>
+              <p class="text-sm text-gray-500">Passageiro</p>
+              <p class="font-medium">${nome}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">CPF</p>
+              <p class="font-medium">${cpfOculto}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Acomodação</p>
+              <p class="font-medium">${acomodacao}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Partida</p>
+              <p class="font-medium">${barco.saida}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Chegada</p>
+              <p class="font-medium">${barco.chegada}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Preço</p>
+              <p class="font-medium">${preco}</p>
+            </div>
+          </div>
+          
+          <div class="flex justify-between items-center">
+            <button onclick="gerarBilhete()" class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-lg transition-all">
+              <i class="fas fa-qrcode mr-2"></i> Gerar Bilhete
+            </button>
+            <button onclick="cancelarReserva()" class="text-red-600 hover:text-red-800 transition-all">
+              <i class="fas fa-times-circle mr-2"></i> Cancelar
+            </button>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('listaReservas').innerHTML = reservaHTML;
+      document.getElementById('qrcode').classList.add('hidden');
+      
+      // Reset form
+      this.reset();
+      
+      // Show success message
+      mostrarTela('painel');
+    });
+
+    function gerarBilhete() {
+      const qrDiv = document.getElementById('qrcode');
+      qrDiv.classList.remove('hidden');
+      qrDiv.innerHTML = "";
+      
+      // Generate random booking reference
+      const ref = "RD" + Math.floor(100000 + Math.random() * 900000);
+      
+      new QRCode(qrDiv, {
+        text: `https://rodway.digital/bilhete?ref=${ref}`,
+        width: 180,
+        height: 180,
+        colorDark: "#0369a1",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+      
+      // Scroll to QR code
+      qrDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function cancelarReserva() {
+      if (confirm("Tem certeza que deseja cancelar esta reserva?")) {
+        document.getElementById('listaReservas').innerHTML = `
+          <div class="bg-white rounded-xl shadow-md p-6 text-center">
+            <i class="fas fa-ticket-alt text-4xl text-gray-300 mb-4"></i>
+            <h3 class="text-xl font-medium text-gray-700 mb-2">Nenhuma reserva encontrada</h3>
+            <p class="text-gray-500 mb-4">Faça sua primeira reserva para começar sua jornada conosco!</p>
+            <button onclick="mostrarTela('reserva')" class="bg-sky-600 hover:bg-sky-700 text-white px-6 py-2 rounded-lg transition-all">
+              <i class="fas fa-plus mr-2"></i> Nova Reserva
+            </button>
+          </div>
+        `;
+        document.getElementById('qrcode').classList.add('hidden');
+      }
+    }
+  </script>
+</body>
+</html>
