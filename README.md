@@ -1,32 +1,65 @@
-📌 Sobre o projeto
-A Rodway Digital é uma simulação de plataforma de reservas de viagens fluviais na região amazônica, desenvolvida como trabalho de faculdade. A aplicação permite ao usuário consultar embarcações, comparar rotas e acomodações, fazer uma reserva e gerar um QR Code que serve como bilhete digital de embarque.
-O sistema é totalmente client-side (não há backend): as reservas existem apenas na sessão atual do navegador.
-✨ Funcionalidades
+# 🚢 Rodway Digital — Transporte Fluvial
 
-Listagem de embarcações com fotos, horários e preços
-Filtro de rotas por destino (Belém ↔ Manaus, Belém ↔ Santarém)
-Três tipos de acomodação: Rede, Poltrona e Cabine
-Formulário de reserva com nome, CPF e seleção de embarcação
-Resumo da viagem em tempo real conforme o usuário preenche
-Geração de QR Code como bilhete digital
-Painel "Minhas Viagens" para visualizar e cancelar reservas
-Design responsivo (mobile e desktop)
-Avaliações com sistema de estrelas e políticas de cancelamento/check-in
+> Plataforma web de **reservas de transporte fluvial na Amazônia**, conectando os portos de **Belém**, **Manaus** e **Santarém**. Projeto desenvolvido para a faculdade utilizando HTML, CSS e JavaScript puro com Tailwind CSS.
 
-🚤 Embarcações disponíveis
-EmbarcaçãoRotaDuraçãoFaixa de preçoN/M Irmãos MirandaBelém ↔ Manaus30hR$ 158 – R$ 474F/B San Marino IIBelém ↔ Manaus30hR$ 127 – R$ 421F/B Amazonas IIBelém ↔ Santarém24hR$ 200 – R$ 379
-🧭 Seções da aplicação
-SeçãoDescriçãoInícioBoas-vindas, diferenciais do serviço e próximas partidasHoráriosLista de embarcações disponíveis com filtro por rotaDetalhesGaleria de imagens, comodidades, avaliações e políticasReservaFormulário de reserva com resumo dinâmicoMinhas ViagensReservas confirmadas com QR Code e opção de cancelamento
-🛠️ Tecnologias utilizadas
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
+![Projeto](https://img.shields.io/badge/projeto-acad%C3%AAmico-blue)
 
-HTML5 — estrutura semântica
-Tailwind CSS (via CDN) — estilização utilitária
-JavaScript (Vanilla) — toda a lógica e interatividade
-Font Awesome 6.4.0 — ícones
-Google Fonts (Poppins) — tipografia
-QRCode.js — geração dos QR Codes dos bilhetes
+🔗 **Acesse online:** [wervley.github.io/rodway-online](https://wervley.github.io/rodway-online/)
 
-📂 Estrutura do projeto
+---
+
+## 📌 Sobre o projeto
+
+A **Rodway Digital** é uma simulação de plataforma de reservas de viagens fluviais na região amazônica, desenvolvida como **trabalho de faculdade**. A aplicação permite ao usuário consultar embarcações, comparar rotas e acomodações, fazer uma reserva e gerar um **QR Code** que serve como bilhete digital de embarque.
+
+O sistema é totalmente **client-side** (não há backend): as reservas existem apenas na sessão atual do navegador.
+
+## ✨ Funcionalidades
+
+- Listagem de **embarcações** com fotos, horários e preços
+- Filtro de **rotas por destino** (Belém ↔ Manaus, Belém ↔ Santarém)
+- Três tipos de **acomodação**: Rede, Poltrona e Cabine
+- **Formulário de reserva** com nome, CPF e seleção de embarcação
+- Resumo da viagem em tempo real conforme o usuário preenche
+- Geração de **QR Code** como bilhete digital
+- Painel **"Minhas Viagens"** para visualizar e cancelar reservas
+- **Design responsivo** (mobile e desktop)
+- Avaliações com sistema de estrelas e políticas de cancelamento/check-in
+
+## 🚤 Embarcações disponíveis
+
+| Embarcação | Rota | Duração | Faixa de preço |
+|------------|------|---------|----------------|
+| N/M Irmãos Miranda | Belém ↔ Manaus | 30h | R$ 158 – R$ 474 |
+| F/B San Marino II | Belém ↔ Manaus | 30h | R$ 127 – R$ 421 |
+| F/B Amazonas II | Belém ↔ Santarém | 24h | R$ 200 – R$ 379 |
+
+## 🧭 Seções da aplicação
+
+| Seção | Descrição |
+|-------|-----------|
+| **Início** | Boas-vindas, diferenciais do serviço e próximas partidas |
+| **Horários** | Lista de embarcações disponíveis com filtro por rota |
+| **Detalhes** | Galeria de imagens, comodidades, avaliações e políticas |
+| **Reserva** | Formulário de reserva com resumo dinâmico |
+| **Minhas Viagens** | Reservas confirmadas com QR Code e opção de cancelamento |
+
+## 🛠️ Tecnologias utilizadas
+
+- **HTML5** — estrutura semântica
+- **Tailwind CSS** (via CDN) — estilização utilitária
+- **JavaScript (Vanilla)** — toda a lógica e interatividade
+- **Font Awesome 6.4.0** — ícones
+- **Google Fonts (Poppins)** — tipografia
+- **QRCode.js** — geração dos QR Codes dos bilhetes
+
+## 📂 Estrutura do projeto
+
+```
 rodway-online/
 ├── IMAGENS/
 │   ├── barco-3.jpeg
@@ -38,9 +71,14 @@ rodway-online/
 ├── index.html           # Página principal (estrutura, estilos e scripts)
 ├── rodwaydigital.txt    # Anotações do projeto
 └── README.md
-🚀 Como executar localmente
-Como é um site estático, basta abrir o index.html no navegador:
-bash# clone o repositório
+```
+
+## 🚀 Como executar localmente
+
+Como é um site estático, basta abrir o `index.html` no navegador:
+
+```bash
+# clone o repositório
 git clone https://github.com/wervley/rodway-online.git
 cd rodway-online
 
@@ -51,20 +89,32 @@ start index.html
 open index.html
 # Linux
 xdg-open index.html
+```
+
 Ou, se preferir servir com um servidor local:
-bash# Python 3
+
+```bash
+# Python 3
 python -m http.server 8000
 
 # Node (com npx serve)
 npx serve .
-Depois acesse http://localhost:8000 no navegador.
-🌐 Deploy
-O projeto está publicado via GitHub Pages:
+```
+
+Depois acesse `http://localhost:8000` no navegador.
+
+## 🌐 Deploy
+
+O projeto está publicado via **GitHub Pages**:
+
 🔗 https://wervley.github.io/rodway-online/
-👤 Autor
-Feito por Wervley Almeida
 
-GitHub: @wervley
+## 👤 Autor
 
-📄 Licença
-Projeto acadêmico disponibilizado sob a licença MIT — livre para estudo e referência.
+Feito por **Wervley Almeida**
+
+- GitHub: [@wervley](https://github.com/wervley)
+
+## 📄 Licença
+
+Projeto acadêmico disponibilizado sob a licença **MIT** — livre para estudo e referência.
